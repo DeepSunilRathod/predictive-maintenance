@@ -1,0 +1,6 @@
+# Root convenience file - the real requirements live in backend/requirements.txt
+# since this is a two-service project (Python backend + Node frontend).
+#
+#   cd backend && pip install -r requirements.txt
+#
+-r backend/requirements.txt

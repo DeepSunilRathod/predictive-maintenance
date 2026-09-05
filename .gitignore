@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+backend/.env
+backend/ml/model.pkl
+backend/ml/data/labeled_dataset.csv
+venv/
+.venv/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# OS
+.DS_Store
+.env
