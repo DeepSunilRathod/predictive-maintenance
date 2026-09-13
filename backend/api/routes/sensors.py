@@ -13,6 +13,7 @@ from services.demo_generator import demo_generator
 from services.system_settings import get_demo_mode
 from config.settings import settings
 from services.threshold_service import get_thresholds, evaluate_status, build_alert_if_needed, has_recent_active_alert
+from services.reading_buffer import reading_buffer
 
 router = APIRouter(prefix="/api/sensors", tags=["sensors"])
 
@@ -57,6 +58,8 @@ async def post_sensor_data(
     new_alerts = []
     values = {"temperature": reading.temperature, "current": reading.current,
               "vibration": reading.vibration, "rpm": reading.rpm}
+    if all(v is not None for v in values.values()):
+        reading_buffer.add(reading.motor_id, values)
     for param, value in values.items():
         if value is None:
             continue

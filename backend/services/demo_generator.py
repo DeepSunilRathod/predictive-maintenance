@@ -17,6 +17,7 @@ import time
 import logging
 from datetime import datetime, timezone
 from services.threshold_service import get_thresholds, evaluate_status, build_alert_if_needed, has_recent_active_alert
+from services.reading_buffer import reading_buffer
 
 from database.connection import SessionLocal
 from database import models
@@ -101,6 +102,7 @@ class DemoGenerator:
         try:
             while self.running:
                 reading = self._generate_reading()
+                reading_buffer.add(settings.motor_id, reading)
                 await self._persist_and_broadcast(reading)
                 await asyncio.sleep(2)
         except asyncio.CancelledError:
